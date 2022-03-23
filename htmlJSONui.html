@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Seimas visualized demo demo demo</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="C:\Users\manta\Documents\lets see\bandymasSuJson.js"></script>
+    <script src="https://goessner.net/download/prj/jsonxml/xml2json.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
+</head>
+<style>
+    div {
+        color: red;
+        font-family: "Consolas";
+    }
+</style>
+
+<body>
+    <form>
+        <label> Pasirinkite kadenciją </label>
+        <select id="kadencijaDropDown">
+            <option value="9">Pasirinkite kadenciją</option>
+            <option value="1">1990-1992</option>
+            <option value="2">1992-1996</option>
+            <option value="3">1996-2000</option>
+            <option value="4">2000-2004</option>
+            <option value="5">2004-2008</option>
+            <option value="6">2008-2012</option>
+            <option value="7">2012-2016</option>
+            <option value="8">2016-2020</option>
+            <option value="9">2020-2024</option>
+        </select>
+    </form>
+    <div style="color:rgb(106, 90, 205)" id="consolelogint">console log stuff</div>
+    <div style="color:rgb(190, 23, 140)" id="duotsarasa">duoti sarasa seimo nariu</div>
+
+
+
+
+
+    <!-- <svg width='200' height='200'>
+            <ellipse
+                fill="#00A59B"
+                cx='100'
+                cy='100'
+                rx='50'
+                ry='25'
+            ></ellipse>
+    </svg> -->
+
+    <!-- <svg id="svg" width="661" height="309" viewBox="-1 -1 665 313">
+        <g><a title="Matas Maldeikis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=69276">
+                <circle class="sn" color="#00A59B" data-sn-id="69276" data-sn-title="Matas Maldeikis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/matas_maldeikis.jpg" cx="190" cy="300" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Arūnas Valinskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=81543">
+                <circle class="sn" color="#00A59B" data-sn-id="81543" data-sn-title="Arūnas Valinskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/arunas_valinskas.jpg" cx="198" cy="279" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Vilija Aleknaitė Abramikienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7229">
+                <circle class="sn" color="#00A59B" data-sn-id="7229" data-sn-title="Vilija Aleknaitė Abramikienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vilija_aleknaite_abramikiene.jpg" cx="210"
+                    cy="260" r="10" fill="#00A59B"></circle>
+            </a><a title="Kęstutis Masiulis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47811">
+                <circle class="sn" color="#00A59B" data-sn-id="47811" data-sn-title="Kęstutis Masiulis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/kestutis_masiulis.jpg" cx="224" cy="243" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Audrius Petrošius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84614">
+                <circle class="sn" color="#00A59B" data-sn-id="84614" data-sn-title="Audrius Petrošius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/audrius_petrosius.jpg" cx="268" cy="212" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Viktoras Pranckietis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79141">
+                <circle class="sn" color="#F49813" data-sn-id="79141" data-sn-title="Viktoras Pranckietis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/viktoras_pranckietis.jpg" cx="298" cy="203"
+                    r="10" fill="#F49813"></circle>
+            </a><a title="Laima Nagienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84610">
+                <circle class="sn" color="#0A1172" data-sn-id="84610" data-sn-title="Laima Nagienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/laima_nagiene.jpg" cx="358" cy="202" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Vytautas Bakas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47890">
+                <circle class="sn" color="#0A1172" data-sn-id="47890" data-sn-title="Vytautas Bakas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vytautas_bakas.jpg" cx="387" cy="212" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Algirdas Butkevičius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7194">
+                <circle class="sn" color="#0A1172" data-sn-id="7194" data-sn-title="Algirdas Butkevičius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/algirdas_butkevicius.jpg" cx="433" cy="243"
+                    r="10" fill="#0A1172"></circle>
+            </a><a title="Domas Griškevičius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84604">
+                <circle class="sn" color="#0A1172" data-sn-id="84604" data-sn-title="Domas Griškevičius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/domas_griskevicius.jpg" cx="446" cy="261" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Kęstutis Vilkauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=22886">
+                <circle class="sn" color="#E80000" data-sn-id="22886" data-sn-title="Kęstutis Vilkauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/kestutis_vilkauskas.jpg" cx="458" cy="279"
+                    r="10" fill="#E80000"></circle>
+            </a><a title="Vidmantas Kanopa"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=26483">
+                <circle class="sn" color="#E80000" data-sn-id="26483" data-sn-title="Vidmantas Kanopa"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vidmantas_kanopa.jpg" cx="467" cy="300" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Aistė Gedvilienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73917">
+                <circle class="sn" color="#00A59B" data-sn-id="73917" data-sn-title="Aistė Gedvilienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/aiste_gedviliene.jpg" cx="154" cy="288" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Audronius Ažubalis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7208">
+                <circle class="sn" color="#00A59B" data-sn-id="7208" data-sn-title="Audronius Ažubalis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/audronius_azubalis.jpg" cx="163" cy="267" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Monika Navickienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73706">
+                <circle class="sn" color="#00A59B" data-sn-id="73706" data-sn-title="Monika Navickienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/monika_navickiene.jpg" cx="173" cy="247" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Gintarė Skaistė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=71923">
+                <circle class="sn" color="#00A59B" data-sn-id="71923" data-sn-title="Gintarė Skaistė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/gintare_skaiste.jpg" cx="187" cy="229" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Stasys Šedbaras"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7448">
+                <circle class="sn" color="#00A59B" data-sn-id="7448" data-sn-title="Stasys Šedbaras"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/stasys_sedbaras.jpg" cx="202" cy="212" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Bronislovas Matelis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79130">
+                <circle class="sn" color="#00A59B" data-sn-id="79130" data-sn-title="Bronislovas Matelis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/bronislovas_matelis.jpg" cx="242" cy="183"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Justinas Urbanavičius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=53910">
+                <circle class="sn" color="#00A59B" data-sn-id="53910" data-sn-title="Justinas Urbanavičius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/justinas_urbanavicius.jpg" cx="261" cy="174"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Andrius Bagdonas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84600">
+                <circle class="sn" color="#F49813" data-sn-id="84600" data-sn-title="Andrius Bagdonas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/andrius_bagdonas.jpg" cx="282" cy="167" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Edita Rudelienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=86469">
+                <circle class="sn" color="#F49813" data-sn-id="86469" data-sn-title="Edita Rudelienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/edita_rudeliene.jpg" cx="303" cy="163" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Linas Kukuraitis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84606">
+                <circle class="sn" color="#0A1172" data-sn-id="84606" data-sn-title="Linas Kukuraitis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/linas_kukuraitis.jpg" cx="353" cy="163" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Tomas Tomilinas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=48049">
+                <circle class="sn" color="#0A1172" data-sn-id="48049" data-sn-title="Tomas Tomilinas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/tomas_tomilinas.jpg" cx="374" cy="167" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Deividas Labanavičius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=80224">
+                <circle class="sn" color="#92D051" data-sn-id="80224" data-sn-title="Deividas Labanavičius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/deividas_labanavicius.jpg" cx="395" cy="174"
+                    r="10" fill="#92D051"></circle>
+            </a><a title="Giedrius Surplys"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84624">
+                <circle class="sn" color="#92D051" data-sn-id="84624" data-sn-title="Giedrius Surplys"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/giedrius_surplys.jpg" cx="415" cy="183" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Rita Tamašunienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73586">
+                <circle class="sn" color="#B0ABAB" data-sn-id="73586" data-sn-title="Rita Tamašunienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/rita_tamasuniene.jpg" cx="455" cy="213" r="10"
+                    fill="#B0ABAB"></circle>
+            </a><a title="Česlav Olševski"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79137">
+                <circle class="sn" color="#B0ABAB" data-sn-id="79137" data-sn-title="Česlav Olševski"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ceslav_olsevski.jpg" cx="470" cy="229" r="10"
+                    fill="#B0ABAB"></circle>
+            </a><a title="Beata Petkevič"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84613">
+                <circle class="sn" color="#B0ABAB" data-sn-id="84613" data-sn-title="Beata Petkevič"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/beata_petkevic.jpg" cx="483" cy="247" r="10"
+                    fill="#B0ABAB"></circle>
+            </a><a title="Vilija Targamadzė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84626">
+                <circle class="sn" color="#E80000" data-sn-id="84626" data-sn-title="Vilija Targamadzė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vilija_targamadze.jpg" cx="494" cy="267" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Eugenijus Sabutis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84618">
+                <circle class="sn" color="#E80000" data-sn-id="84618" data-sn-title="Eugenijus Sabutis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/eugenijus_sabutis.jpg" cx="502" cy="288" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Jurgis Razma"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7242">
+                <circle class="sn" color="#00A59B" data-sn-id="7242" data-sn-title="Jurgis Razma"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/jurgis_razma.jpg" cx="118" cy="276" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Edmundas Pupinis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=36392">
+                <circle class="sn" color="#00A59B" data-sn-id="36392" data-sn-title="Edmundas Pupinis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/edmundas_pupinis.jpg" cx="127" cy="255" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Vytautas Juozapaitis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73575">
+                <circle class="sn" color="#00A59B" data-sn-id="73575" data-sn-title="Vytautas Juozapaitis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vytautas_juozapaitis.jpg" cx="137" cy="235"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Kristijonas Bartoševičius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84601">
+                <circle class="sn" color="#00A59B" data-sn-id="84601" data-sn-title="Kristijonas Bartoševičius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/kristijonas_bartosevicius.jpg" cx="149" cy="216"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Arvydas Anušauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=53916">
+                <circle class="sn" color="#00A59B" data-sn-id="53916" data-sn-title="Arvydas Anušauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/arvydas_anusauskas.jpg" cx="163" cy="198" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Dainius Kreivys"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=24048">
+                <circle class="sn" color="#00A59B" data-sn-id="24048" data-sn-title="Dainius Kreivys"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/dainius_kreivys.jpg" cx="179" cy="182" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Andrius Kupčinskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=36125">
+                <circle class="sn" color="#00A59B" data-sn-id="36125" data-sn-title="Andrius Kupčinskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/andrius_kupcinskas.jpg" cx="220" cy="152" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Mindaugas Skritulskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84621">
+                <circle class="sn" color="#00A59B" data-sn-id="84621" data-sn-title="Mindaugas Skritulskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/mindaugas_skritulskas.jpg" cx="239" cy="143"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Tuščia">
+                <circle data-sn-id="" cx="260" cy="135" r="9" stroke="black" stroke-width="1" fill="none"></circle>
+            </a><a title="Romualdas Vaitkus"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84627">
+                <circle class="sn" color="#F49813" data-sn-id="84627" data-sn-title="Romualdas Vaitkus"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/romualdas_vaitkus.jpg" cx="281" cy="129" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Eugenijus Gentvilas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=146">
+                <circle class="sn" color="#F49813" data-sn-id="146" data-sn-title="Eugenijus Gentvilas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/eugenijus_gentvilas.jpg" cx="303" cy="125"
+                    r="10" fill="#F49813"></circle>
+            </a><a title="Aidas Gedvilas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47855">
+                <circle class="sn" color="#3370A8" data-sn-id="47855" data-sn-title="Aidas Gedvilas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/aidas_gedvilas.jpg" cx="353" cy="125" r="10"
+                    fill="#3370A8"></circle>
+            </a><a title="Vigilijus Jukna"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73903">
+                <circle class="sn" color="#3370A8" data-sn-id="73903" data-sn-title="Vigilijus Jukna"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vigilijus_jukna.jpg" cx="375" cy="129" r="10"
+                    fill="#3370A8"></circle>
+            </a><a title="Dainius Kepenis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79175">
+                <circle class="sn" color="#92D051" data-sn-id="79175" data-sn-title="Dainius Kepenis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/dainius_kepenis.jpg" cx="397" cy="134" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Kęstutis Mažeika"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79131">
+                <circle class="sn" color="#92D051" data-sn-id="79131" data-sn-title="Kęstutis Mažeika"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/kestutis_mazeika.jpg" cx="417" cy="142" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Jonas Jarutis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=17780">
+                <circle class="sn" color="#92D051" data-sn-id="17780" data-sn-title="Jonas Jarutis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/jonas_jarutis.jpg" cx="437" cy="153" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Stasys Tumėnas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79154">
+                <circle class="sn" color="#92D051" data-sn-id="79154" data-sn-title="Stasys Tumėnas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/stasys_tumenas.jpg" cx="477" cy="182" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Robertas Šarknickas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79151">
+                <circle class="sn" color="#92D051" data-sn-id="79151" data-sn-title="Robertas Šarknickas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/robertas_sarknickas.jpg" cx="493" cy="198"
+                    r="10" fill="#92D051"></circle>
+            </a><a title="Valdemaras Valkiūnas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=53907">
+                <circle class="sn" color="#B0ABAB" data-sn-id="53907" data-sn-title="Valdemaras Valkiūnas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/valdemaras_valkiunas.jpg" cx="507" cy="216"
+                    r="10" fill="#B0ABAB"></circle>
+            </a><a title="Petras Gražulis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7199">
+                <circle class="sn" color="#B0ABAB" data-sn-id="7199" data-sn-title="Petras Gražulis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/petras_grazulis.jpg" cx="519" cy="235" r="10"
+                    fill="#B0ABAB"></circle>
+            </a><a title="Linas Jonauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47571">
+                <circle class="sn" color="#E80000" data-sn-id="47571" data-sn-title="Linas Jonauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/linas_jonauskas.jpg" cx="530" cy="255" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Gintautas Paluckas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84612">
+                <circle class="sn" color="#E80000" data-sn-id="84612" data-sn-title="Gintautas Paluckas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/gintautas_paluckas.jpg" cx="538" cy="276" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Valdas Rakutis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84616">
+                <circle class="sn" color="#00A59B" data-sn-id="84616" data-sn-title="Valdas Rakutis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/valdas_rakutis.jpg" cx="82" cy="265" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Linas Slušnys"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84622">
+                <circle class="sn" color="#00A59B" data-sn-id="84622" data-sn-title="Linas Slušnys"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/linas_slusnys.jpg" cx="91" cy="243" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Antanas Matulas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7221">
+                <circle class="sn" color="#00A59B" data-sn-id="7221" data-sn-title="Antanas Matulas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/antanas_matulas.jpg" cx="100" cy="223" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Dalia Asanavičiūtė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84599">
+                <circle class="sn" color="#00A59B" data-sn-id="84599" data-sn-title="Dalia Asanavičiūtė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/dalia_asanaviciute.jpg" cx="112" cy="203" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Irena Haase"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=22294">
+                <circle class="sn" color="#00A59B" data-sn-id="22294" data-sn-title="Irena Haase"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/irena_haase.jpg" cx="126" cy="184" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Paulius Saudargas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=53899">
+                <circle class="sn" color="#00A59B" data-sn-id="53899" data-sn-title="Paulius Saudargas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/paulius_saudargas.jpg" cx="141" cy="167" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Sergejus Jovaiša"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73573">
+                <circle class="sn" color="#00A59B" data-sn-id="73573" data-sn-title="Sergejus Jovaiša"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/sergejus_jovaisa.jpg" cx="157" cy="151" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Mindaugas Lingė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84607">
+                <circle class="sn" color="#00A59B" data-sn-id="84607" data-sn-title="Mindaugas Lingė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/mindaugas_linge.jpg" cx="197" cy="122" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Liuda Pociūnienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84615">
+                <circle class="sn" color="#00A59B" data-sn-id="84615" data-sn-title="Liuda Pociūnienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/liuda_pociuniene.jpg" cx="217" cy="111" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Simonas Gentvilas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79170">
+                <circle class="sn" color="#F49813" data-sn-id="79170" data-sn-title="Simonas Gentvilas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/simonas_gentvilas.jpg" cx="238" cy="102" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Virgilijus Alekna"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79162">
+                <circle class="sn" color="#F49813" data-sn-id="79162" data-sn-title="Virgilijus Alekna"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/virgilijus_alekna.jpg" cx="259" cy="96" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Vytautas Mitalas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73919">
+                <circle class="sn" color="#F6005E" data-sn-id="73919" data-sn-title="Vytautas Mitalas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vytautas_mitalas.jpg" cx="281" cy="91" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Artūras Žukauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84628">
+                <circle class="sn" color="#F6005E" data-sn-id="84628" data-sn-title="Artūras Žukauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/arturas_zukauskas.jpg" cx="303" cy="87" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Mindaugas Puidokas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79142">
+                <circle class="sn" color="#3370A8" data-sn-id="79142" data-sn-title="Mindaugas Puidokas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/mindaugas_puidokas.jpg" cx="353" cy="87" r="10"
+                    fill="#3370A8"></circle>
+            </a><a title="Vaida Giraitytė-Juškevičienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47909">
+                <circle class="sn" color="#3370A8" data-sn-id="47909" data-sn-title="Vaida Giraitytė-Juškevičienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vaida_giraityte.jpg" cx="376" cy="90" r="10"
+                    fill="#3370A8"></circle>
+            </a><a title="Ieva Kačinskaitė-Urbonienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=75270">
+                <circle class="sn" color="#3370A8" data-sn-id="75270" data-sn-title="Ieva Kačinskaitė-Urbonienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ieva_kacinskaite_urboniene.jpg" cx="397" cy="95"
+                    r="10" fill="#3370A8"></circle>
+            </a><a title="Zenonas Streikus"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79149">
+                <circle class="sn" color="#0A1172" data-sn-id="79149" data-sn-title="Zenonas Streikus"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/zenonas_streikus.jpg" cx="418" cy="102" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Guoda Burokienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79167">
+                <circle class="sn" color="#92D051" data-sn-id="79167" data-sn-title="Guoda Burokienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/guoda_burokiene.jpg" cx="439" cy="111" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Eugenijus Jovaiša"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79173">
+                <circle class="sn" color="#92D051" data-sn-id="79173" data-sn-title="Eugenijus Jovaiša"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/eugenijus_jovaisa.jpg" cx="459" cy="121" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Algimantas Dumbrava"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=36693">
+                <circle class="sn" color="#92D051" data-sn-id="36693" data-sn-title="Algimantas Dumbrava"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/algimantas_dumbrava.jpg" cx="499" cy="151"
+                    r="10" fill="#92D051"></circle>
+            </a><a title="Gintautas Kindurys"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79178">
+                <circle class="sn" color="#92D051" data-sn-id="79178" data-sn-title="Gintautas Kindurys"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/gintautas_kindurys.jpg" cx="516" cy="167" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Agnė Širinskienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79153">
+                <circle class="sn" color="#B0ABAB" data-sn-id="79153" data-sn-title="Agnė Širinskienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/agne_sirinskiene.jpg" cx="531" cy="185" r="10"
+                    fill="#B0ABAB"></circle>
+            </a><a title="Remigijus Žemaitaitis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=65703">
+                <circle class="sn" color="#B0ABAB" data-sn-id="65703" data-sn-title="Remigijus Žemaitaitis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/remigijus_zemaitaitis.jpg" cx="544" cy="203"
+                    r="10" fill="#B0ABAB"></circle>
+            </a><a title="Andrius Palionis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73578">
+                <circle class="sn" color="#B0ABAB" data-sn-id="73578" data-sn-title="Andrius Palionis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/andrius_palionis.jpg" cx="556" cy="223" r="10"
+                    fill="#B0ABAB"></circle>
+            </a><a title="Tomas Bičiūnas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=42717">
+                <circle class="sn" color="#E80000" data-sn-id="42717" data-sn-title="Tomas Bičiūnas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/tomas_biciunas.jpg" cx="566" cy="244" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Dovilė Šakalienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79150">
+                <circle class="sn" color="#E80000" data-sn-id="79150" data-sn-title="Dovilė Šakalienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/dovile_sakaliene.jpg" cx="574" cy="265" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Algis Strelčiūnas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73585">
+                <circle class="sn" color="#00A59B" data-sn-id="73585" data-sn-title="Algis Strelčiūnas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/algis_strelciunas.jpg" cx="46" cy="253" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Laima Liucija Andrikienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=6">
+                <circle class="sn" color="#00A59B" data-sn-id="6" data-sn-title="Laima Liucija Andrikienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/laima_liucija_andrikiene.jpg" cx="53" cy="232"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Mykolas Majauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79182">
+                <circle class="sn" color="#00A59B" data-sn-id="79182" data-sn-title="Mykolas Majauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/mykolas_majauskas.jpg" cx="64" cy="211" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Emanuelis Zingeris"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=43">
+                <circle class="sn" color="#00A59B" data-sn-id="43" data-sn-title="Emanuelis Zingeris"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/emanuelis_zingeris.jpg" cx="75" cy="191" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Antanas Čepononis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=35554">
+                <circle class="sn" color="#00A59B" data-sn-id="35554" data-sn-title="Antanas Čepononis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/antanas_cepononis.jpg" cx="88" cy="171" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Jurgita Šiugždinienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84625">
+                <circle class="sn" color="#00A59B" data-sn-id="84625" data-sn-title="Jurgita Šiugždinienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/jurgita_siugzdiniene.jpg" cx="102" cy="153"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Jurgita Sejonienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84620">
+                <circle class="sn" color="#00A59B" data-sn-id="84620" data-sn-title="Jurgita Sejonienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/jurgita_sejoniene.jpg" cx="118" cy="137" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Arvydas Pocius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=83614">
+                <circle class="sn" color="#00A59B" data-sn-id="83614" data-sn-title="Arvydas Pocius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/arvydas_pocius.jpg" cx="135" cy="120" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Paulė Kuzmickienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=69153">
+                <circle class="sn" color="#00A59B" data-sn-id="69153" data-sn-title="Paulė Kuzmickienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/paule_kuzmickiene.jpg" cx="175" cy="91" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Vytautas Kernagis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79176">
+                <circle class="sn" color="#00A59B" data-sn-id="79176" data-sn-title="Vytautas Kernagis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vytautas_kernagis.jpg" cx="195" cy="81" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Raimundas Lopata"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84608">
+                <circle class="sn" color="#F49813" data-sn-id="84608" data-sn-title="Raimundas Lopata"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/raimundas_lopata.jpg" cx="216" cy="71" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Arminas Lydeka"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47211">
+                <circle class="sn" color="#F49813" data-sn-id="47211" data-sn-title="Arminas Lydeka"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/arminas_lydeka.jpg" cx="236" cy="63" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Viktorija Čmilytė-Nielsen"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=71563">
+                <circle class="sn" color="#383A39" data-sn-id="71563" data-sn-title="Viktorija Čmilytė-Nielsen"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/viktorija_cmilyte_nielsen.jpg" cx="258" cy="57"
+                    r="10" fill="#383A39"></circle>
+            </a><a title="Tomas Vytautas Raskevičius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84617">
+                <circle class="sn" color="#F6005E" data-sn-id="84617" data-sn-title="Tomas Vytautas Raskevičius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/tomas_vytautas_raskevicius.jpg" cx="281" cy="52"
+                    r="10" fill="#F6005E"></circle>
+            </a><a title="Aušrinė Armonaitė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79164">
+                <circle class="sn" color="#F6005E" data-sn-id="79164" data-sn-title="Aušrinė Armonaitė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ausrine_armonaite.jpg" cx="303" cy="49" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Morgana Danielė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84602">
+                <circle class="sn" color="#F6005E" data-sn-id="84602" data-sn-title="Morgana Danielė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/morgana_daniele.jpg" cx="353" cy="49" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Ieva Pakarklytė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73739">
+                <circle class="sn" color="#F6005E" data-sn-id="73739" data-sn-title="Ieva Pakarklytė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ieva_pakarklyte.jpg" cx="376" cy="52" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Artūras Skardžius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47229">
+                <circle class="sn" color="#3370A8" data-sn-id="47229" data-sn-title="Artūras Skardžius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/arturas_skardzius.jpg" cx="398" cy="57" r="10"
+                    fill="#3370A8"></circle>
+            </a><a title="Vytautas Gapšys"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47932">
+                <circle class="sn" color="#3370A8" data-sn-id="47932" data-sn-title="Vytautas Gapšys"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/vytautas_gapsys.jpg" cx="419" cy="63" r="10"
+                    fill="#3370A8"></circle>
+            </a><a title="Rima Baškienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=26656">
+                <circle class="sn" color="#0A1172" data-sn-id="26656" data-sn-title="Rima Baškienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/rima_baskiene.jpg" cx="441" cy="71" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Laima Mogenienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47804">
+                <circle class="sn" color="#0A1172" data-sn-id="47804" data-sn-title="Laima Mogenienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/laima_mogeniene.jpg" cx="461" cy="80" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Rūta Miliūtė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79132">
+                <circle class="sn" color="#0A1172" data-sn-id="79132" data-sn-title="Rūta Miliūtė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ruta_miliute.jpg" cx="481" cy="91" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Aušrinė Norkienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79136">
+                <circle class="sn" color="#92D051" data-sn-id="79136" data-sn-title="Aušrinė Norkienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ausrine_norkiene.jpg" cx="522" cy="121" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Arvydas Nekrošius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79134">
+                <circle class="sn" color="#92D051" data-sn-id="79134" data-sn-title="Arvydas Nekrošius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/arvydas_nekrosius.jpg" cx="538" cy="136" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Aurelijus Veryga"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79159">
+                <circle class="sn" color="#92D051" data-sn-id="79159" data-sn-title="Aurelijus Veryga"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/aurelijus_veryga.jpg" cx="554" cy="153" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Ligita Girskienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79353">
+                <circle class="sn" color="#92D051" data-sn-id="79353" data-sn-title="Ligita Girskienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ligita_girskiene.jpg" cx="568" cy="171" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Antanas Vinkus"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=272">
+                <circle class="sn" color="#92D051" data-sn-id="272" data-sn-title="Antanas Vinkus"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/antanas_vinkus.jpg" cx="581" cy="191" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Zigmantas Balčytis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47220">
+                <circle class="sn" color="#0A1172" data-sn-id="47220" data-sn-title="Zigmantas Balčytis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/zigmantas_balcytis.jpg" cx="592" cy="211" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Liudas Jonaitis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=34055">
+                <circle class="sn" color="#E80000" data-sn-id="34055" data-sn-title="Liudas Jonaitis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/liudas_jonaitis.jpg" cx="602" cy="231" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Rasa Budbergytė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7363">
+                <circle class="sn" color="#E80000" data-sn-id="7363" data-sn-title="Rasa Budbergytė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/rasa_budbergyte.jpg" cx="610" cy="253" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Andrius Navickas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=21910">
+                <circle class="sn" color="#00A59B" data-sn-id="21910" data-sn-title="Andrius Navickas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/andrius_navickas.jpg" cx="11" cy="242" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Kazys Starkevičius"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47839">
+                <circle class="sn" color="#00A59B" data-sn-id="47839" data-sn-title="Kazys Starkevičius"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/kazys_starkevicius.jpg" cx="19" cy="220" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Justas Džiugelis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79168">
+                <circle class="sn" color="#00A59B" data-sn-id="79168" data-sn-title="Justas Džiugelis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/justas_dziugelis.jpg" cx="28" cy="198" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Laurynas Kasčiūnas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=64701">
+                <circle class="sn" color="#00A59B" data-sn-id="64701" data-sn-title="Laurynas Kasčiūnas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/laurynas_kasciunas.jpg" cx="39" cy="178" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Žygimantas Pavilionis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79139">
+                <circle class="sn" color="#00A59B" data-sn-id="79139" data-sn-title="Žygimantas Pavilionis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/zygimantas_pavilionis.jpg" cx="51" cy="159"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Agnė Bilotaitė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=50482">
+                <circle class="sn" color="#00A59B" data-sn-id="50482" data-sn-title="Agnė Bilotaitė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/agne_bilotaite.jpg" cx="65" cy="140" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Radvilė Morkūnaitė-Mikulėnienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=48538">
+                <circle class="sn" color="#00A59B" data-sn-id="48538" data-sn-title="Radvilė Morkūnaitė-Mikulėnienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/radvile_morkunaite_mikuleniene.jpg" cx="79"
+                    cy="122" r="10" fill="#00A59B"></circle>
+            </a><a title="Ingrida Šimonytė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=56180">
+                <circle class="sn" color="#00A59B" data-sn-id="56180" data-sn-title="Ingrida Šimonytė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ingrida_simonyte.jpg" cx="95" cy="105" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Gabrielius Landsbergis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79180">
+                <circle class="sn" color="#00A59B" data-sn-id="79180" data-sn-title="Gabrielius Landsbergis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/gabrielius_landsbergis.jpg" cx="112" cy="90"
+                    r="10" fill="#00A59B"></circle>
+            </a><a title="Andrius Vyšniauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73700">
+                <circle class="sn" color="#00A59B" data-sn-id="73700" data-sn-title="Andrius Vyšniauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/andrius_vysniauskas.jpg" cx="153" cy="61" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Jonas Gudauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=39474">
+                <circle class="sn" color="#00A59B" data-sn-id="39474" data-sn-title="Jonas Gudauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/jonas_gudauskas.jpg" cx="172" cy="49" r="10"
+                    fill="#00A59B"></circle>
+            </a><a title="Jonas Varkalys"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=34869">
+                <circle class="sn" color="#F49813" data-sn-id="34869" data-sn-title="Jonas Varkalys"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/jonas_varkalys.jpg" cx="193" cy="40" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Ričardas Juška"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=35799">
+                <circle class="sn" color="#F49813" data-sn-id="35799" data-sn-title="Ričardas Juška"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/ricardas_juska.jpg" cx="214" cy="31" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Juozas Baublys"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=38418">
+                <circle class="sn" color="#F49813" data-sn-id="38418" data-sn-title="Juozas Baublys"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/juozas_baublys.jpg" cx="236" cy="23" r="10"
+                    fill="#F49813"></circle>
+            </a><a title="Silva Lengvinienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=38801">
+                <circle class="sn" color="#F6005E" data-sn-id="38801" data-sn-title="Silva Lengvinienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/silva_lengviniene.jpg" cx="258" cy="18" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Kasparas Adomaitis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84598">
+                <circle class="sn" color="#F6005E" data-sn-id="84598" data-sn-title="Kasparas Adomaitis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/kasparas_adomaitis.jpg" cx="280" cy="14" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Monika Ošmianskienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84611">
+                <circle class="sn" color="#F6005E" data-sn-id="84611" data-sn-title="Monika Ošmianskienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/monika_osmianskiene.jpg" cx="303" cy="11" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Marius Matijošaitis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84609">
+                <circle class="sn" color="#F6005E" data-sn-id="84609" data-sn-title="Marius Matijošaitis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/marius_matijosaitis.jpg" cx="353" cy="11" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Evelina Dobrovolska"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84603">
+                <circle class="sn" color="#F6005E" data-sn-id="84603" data-sn-title="Evelina Dobrovolska"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/evelina_dobrovolska.jpg" cx="376" cy="14" r="10"
+                    fill="#F6005E"></circle>
+            </a><a title="Viktoras Fiodorovas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=73571">
+                <circle class="sn" color="#3370A8" data-sn-id="73571" data-sn-title="Viktoras Fiodorovas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/viktoras_fiodorovas.jpg" cx="398" cy="18" r="10"
+                    fill="#3370A8"></circle>
+            </a><a title="Andrius Mazuronis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=53932">
+                <circle class="sn" color="#3370A8" data-sn-id="53932" data-sn-title="Andrius Mazuronis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/andrius_mazuronis.jpg" cx="421" cy="24" r="10"
+                    fill="#3370A8"></circle>
+            </a><a title="Valentinas Bukauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47850">
+                <circle class="sn" color="#3370A8" data-sn-id="47850" data-sn-title="Valentinas Bukauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/valentinas_bukauskas.jpg" cx="442" cy="31"
+                    r="10" fill="#3370A8"></circle>
+            </a><a title="Saulius Skvernelis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79145">
+                <circle class="sn" color="#0A1172" data-sn-id="79145" data-sn-title="Saulius Skvernelis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/saulius_skvernelis.jpg" cx="463" cy="39" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Algirdas Stončaitis"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84623">
+                <circle class="sn" color="#0A1172" data-sn-id="84623" data-sn-title="Algirdas Stončaitis"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/algirdas_stoncaitis.jpg" cx="483" cy="49" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Lukas Savickas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=84619">
+                <circle class="sn" color="#0A1172" data-sn-id="84619" data-sn-title="Lukas Savickas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/lukas_savickas.jpg" cx="504" cy="60" r="10"
+                    fill="#0A1172"></circle>
+            </a><a title="Juozas Varžgalys"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79157">
+                <circle class="sn" color="#92D051" data-sn-id="79157" data-sn-title="Juozas Varžgalys"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/juozas_varzgalys.jpg" cx="544" cy="90" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Valius Ąžuolas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79165">
+                <circle class="sn" color="#92D051" data-sn-id="79165" data-sn-title="Valius Ąžuolas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/valius_azuolas.jpg" cx="561" cy="105" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Dainius Gaižauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79169">
+                <circle class="sn" color="#92D051" data-sn-id="79169" data-sn-title="Dainius Gaižauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/dainius_gaizauskas.jpg" cx="577" cy="122" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Asta Kubilienė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=79179">
+                <circle class="sn" color="#92D051" data-sn-id="79179" data-sn-title="Asta Kubilienė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/asta_kubiliene.jpg" cx="592" cy="140" r="10"
+                    fill="#92D051"></circle>
+            </a><a title="Rimantė Šalaševičiūtė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=51970">
+                <circle class="sn" color="#92D051" data-sn-id="51970" data-sn-title="Rimantė Šalaševičiūtė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/rimante_salaseviciute.jpg" cx="605" cy="158"
+                    r="10" fill="#92D051"></circle>
+            </a><a title="Jonas Pinskus"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=47959">
+                <circle class="sn" color="#B0ABAB" data-sn-id="47959" data-sn-title="Jonas Pinskus"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/jonas_pinskus.jpg" cx="617" cy="178" r="10"
+                    fill="#B0ABAB"></circle>
+            </a><a title="Orinta Leiputė"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=15266">
+                <circle class="sn" color="#E80000" data-sn-id="15266" data-sn-title="Orinta Leiputė"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/orinta_leipute.jpg" cx="629" cy="199" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Algirdas Sysas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=7252">
+                <circle class="sn" color="#E80000" data-sn-id="7252" data-sn-title="Algirdas Sysas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/algirdas_sysas.jpg" cx="638" cy="220" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Julius Sabatauskas"
+                href="https://www.lrs.lt/sip/portal.show?p_r=35299&amp;p_k=1&amp;p_a=498&amp;p_asm_id=23521">
+                <circle class="sn" color="#E80000" data-sn-id="23521" data-sn-title="Julius Sabatauskas"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/julius_sabatauskas.jpg" cx="646" cy="242" r="10"
+                    fill="#E80000"></circle>
+            </a><a title="Tuščia">
+                <circle data-sn-id="" cx="540" cy="15" r="9" stroke="black" stroke-width="1" fill="none"></circle>
+            </a><a title="Tuščia">
+                <circle data-sn-id="" cx="572" cy="38" r="9" stroke="black" stroke-width="1" fill="none"></circle>
+            </a><a title="Tuščia">
+                <circle data-sn-id="" cx="601" cy="66" r="9" stroke="black" stroke-width="1" fill="none"></circle>
+            </a><a title="Tuščia">
+                <circle data-sn-id="" cx="630" cy="101" r="9" stroke="black" stroke-width="1" fill="none"></circle>
+            </a><a title="Tuščia">
+                <circle data-sn-id="" cx="652" cy="136" r="9" stroke="black" stroke-width="1" fill="none"></circle>
+            </a><a title="Viktorija Čmilytė-Nielsen" href="https://www.lrs.lt/sip/portal.show?p_r=35302&amp;p_k=1">
+                <rect class="sn sp" x="318" y="289" width="20" height="20" fill="#383A39" color="#383A39"
+                    data-sn-id="71563" data-sn-title="Viktorija Čmilytė-Nielsen"
+                    data-sn-foto="https://www.lrs.lt/SIPIS/sn_foto/2020/viktorija_cmilyte_nielsen.jpg"></rect>
+            </a></g>
+    </svg> -->
+</body>
+
+</html>
