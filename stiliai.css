@@ -1,0 +1,42 @@
+div {
+    font-family: "Consolas";
+}
+
+.wrapper .fonas {
+    margin-bottom: 10px;
+    margin-right: 5%;
+    text-align: center;
+}
+
+.wrapper .fonas2 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.wrapper2 .fonas {
+    width: 65%;
+    float: left;
+}
+
+.wrapper2 .fonas2 {
+    width: 30%;
+    float: right;
+
+    overflow: hidden;
+    display: flex;
+}
+
+.fonas {
+    background-color: rgb(197, 204, 207);
+}
+
+.fonas2 {
+    background-color: rgb(197, 204, 207);
+}
+
+.wrapper {
+    display: flex;
+}
+
+/* is there a way to make it so that i dont have to assign the background
+colour to the divs every time? like a class or smth i guess */
