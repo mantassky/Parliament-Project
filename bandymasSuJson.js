@@ -2,7 +2,7 @@
 
 window.onload = () => {
     const getFiles = async () => {
-        let response = await fetch("https://raw.githubusercontent.com/mantassky/SeimasTempFiles/main/master file.json")
+        let response = await fetch("https://raw.githubusercontent.com/mantassky/SeimasTempFiles/main/masterObj.json")
         master = await response.json()
         response = await fetch("https://raw.githubusercontent.com/mantassky/Parliament-Project/main/objFrakcijos.json")
         objFrakcijos = await response.json()
