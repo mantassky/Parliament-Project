@@ -1,12 +1,14 @@
 
 
 window.onload = () => {
-    const getmasterfile = async () => {
-        const response = await fetch("https://raw.githubusercontent.com/mantassky/Seimas-project/main/master file.json")
+    const getFiles = async () => {
+        let response = await fetch("https://raw.githubusercontent.com/mantassky/SeimasTempFiles/main/master file.json")
         master = await response.json()
+        response = await fetch("https://raw.githubusercontent.com/mantassky/Parliament-Project/main/objFrakcijos.json")
+        objFrakcijos = await response.json()
     }
-    getmasterfile()
-    var kokiaKad = "8"
+    getFiles()
+    var kokiaKad = "9"
     var consoleogint = document.getElementById("consolelogint");
     var duotsarasa = document.getElementById("duotsarasa");
     var padaliniai = {}
@@ -48,144 +50,59 @@ window.onload = () => {
             data_iki: ""
         }
     }
+    
+    duotsarasa.onclick = () => {
+        duotsarasa.innerText = "sarasas duotas";
 
-    var objFrakcijos = {
-        "1322": {
-            trumpinys: "D",
-            spalva: "grey"
-        },
-        "1154": {
-            trumpinys: "LP",
-            spalva: "deeppink"
-        },
-        "870": {
-            trumpinys: "LRLS",
-            spalva: "orange"
-        },
-        "1022": {
-            trumpinys: "TS-LKD",
-            spalva: "teal"
-        },
-        "1070": {
-            trumpinys: "LVŽS",
-            spalva: "green"
-        },
-        "874": {
-            trumpinys: "DP",
-            spalva: "darkblue"
-        },
-        "793": {
-            trumpinys: "LSP",
-            spalva: "red"
-        },
-        "1318": {
-            trumpinys: "R",
-            spalva: "darkred"
-        },
-        "18": {
-            trumpinys: "LG",
-            spalva: "green"
-        },
-        "19": {
-            trumpinys: "LDDPF",
-            spalva: "#c22e30"
-        },
-        "36": {
-            trumpinys: "SDF",
-            spalva: "#e10415"
-        },
-        "577": {
-            trumpinys: "LRF",
-            spalva: "gray"
-        },
-        "579": {
-            trumpinys: "TiT",
-            spalva: "#bec023"
-        },
-        "580": {
-            trumpinys: "JF",
-            spalva: "gray"
-        },
-        "581": {
-            trumpinys: "CF",
-            spalva: "#008d3f"
-        },
-        "786": {
-            trumpinys: "SD2000",
-            spalva: "#901d78"
-        },
-        "787": {
-            trumpinys: "MKD",
-            spalva: "grey"
-        },
-        "789": {
-            trumpinys: "NK",
-            spalva: "grey"
-        },
-        "790": {
-            trumpinys: "LLRA",
-            spalva: "grey"
-        },
-        "792": {
-            trumpinys: "TS",
-            spalva: "#0c5b22"
-        },
-        "49": {
-            trumpinys: "TS-LK",
-            spalva: "#3164b7"
-        },
-        "794": {
-            trumpinys: "LF",
-            spalva: "#ddbc51"
-        },
-        "795": {
-            trumpinys: "NSF",
-            spalva: "#280c70"
-        },
-        "796": {
-            trumpinys: "JF",
-            spalva: "#3164b7"
-        },
-        "797": {
-            trumpinys: "VL",
-            spalva: "#bad759"
-        },
-        "888": {
-            trumpinys: "LiCS",
-            spalva: "#fcd211"
-        },
-        "980": {
-            trumpinys: "PD",
-            spalva: "#033262"
-        },
-        "1051": {
-            trumpinys: "LLRA",
-            spalva: "#3164b7"
-        },
-        "47": {
-            trumpinys: "Mišri Seimo narių grupė",
-            spalva: "#616A6B"
-        },
-        "1098": {
-            trumpinys: "LSDDP",
-            spalva: "#bb2a31"
-        },
-        "1021": {
-            trumpinys: "TP",
-            spalva: "#f7bc00"
-        },
-        "-1": {
-            trumpinys: "SP",
-            spalva: "black"
-        },
-        "-2": {
-            trumpinys: "NERASTA",
-            spalva: "crimson"
-        },
-        "-3": {
-            trumpinys: "Be pareigų",
-            spalva: "crimson"
+        function compareFrakcija(a, b) {
+            if (a.dabartine_fr_id < b.dabartine_fr_id) {
+                return -1;
+            } else if (a.dabartine_fr_id > b.dabartine_fr_id) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
+        var toRemove = [];
+
+        //Suskirtymas i dabartines frakcijas
+        master[kokiaKad].SeimoNarys.forEach(narys => {
+            if (narys.data_iki === kadencijos[kokiaKad].data_iki) {
+                if (narys.hasOwnProperty('Pareigos')) {
+                    tp = narys.Pareigos.find(pareiga => objFrakcijos.hasOwnProperty(pareiga.padalinio_id) && pareiga.data_iki === kadencijos[kokiaKad].data_iki)
+                    if (!tp) {
+                        narys.dabartine_fr_id = "-2"
+                    } else {
+                        narys.dabartine_fr_id = tp.padalinio_id
+                    }
+                } else {
+                    narys.dabartine_fr_id = '-3'
+                }
+
+            } else {
+                toRemove.push(master[kokiaKad].SeimoNarys.indexOf(narys));
+            }
+        });
+
+        //Panaikinami dabar nesantys nariai
+        for (var i = 0; i < toRemove.length; i++) {
+            master[kokiaKad].SeimoNarys.splice(toRemove[i] - i, 1);
+        }
+
+        master[kokiaKad].SeimoNarys.sort(compareFrakcija);
+
+        nariuList = document.createElement('ol');
+        fonas=document.getElementById("f_sarasas")
+        fonas.innerHTML = ''
+        fonas.appendChild(nariuList);
+
+        //Pridejimas nariu i sarasa
+        master[kokiaKad].SeimoNarys.forEach(narys => {
+            let listItem = document.createElement("li");
+            nariuList.appendChild(listItem);
+            listItem.innerText = objFrakcijos[narys.dabartine_fr_id].trumpinys + " " + narys.vardas + " " + narys.pavardė;
+            listItem.setAttribute("style", "color:" + objFrakcijos[narys.dabartine_fr_id].spalva);
+        });
     }
 
     consoleogint.onclick = () => {
@@ -230,7 +147,7 @@ window.onload = () => {
 
         const gauti = async () => {
             for (let i = 1; i < 10; i++) {
-                const response = await fetch("https://raw.githubusercontent.com/mantassky/Seimas-project/main/sn" + i + ".json")
+                const response = await fetch("https://raw.githubusercontent.com/mantassky/SeimasTempFiles/main/sn" + i + ".json")
                 const data = await response.json()
                 apdorojimas(data, master)
                 console.log(data)
@@ -249,62 +166,7 @@ window.onload = () => {
     }
 
 
-    duotsarasa.onclick = () => {
-        duotsarasa.innerText = "sarasas duotas";
-
-        function compareFrakcija(a, b) {
-            if (a.dabartine_fr_id < b.dabartine_fr_id) {
-                return -1;
-            } else if (a.dabartine_fr_id > b.dabartine_fr_id) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-
-        /* const frakcijuID = ["1322", "1154", "870", "1022", "1070", "874", "793", "1318", "35"];
-        const frakcijos = ["D", "LP", "LRLS", "TS-LKD", "LVZS", "DP", "LSP", "R", "SP"];
-        const frakcijuSpalvos = ["grey", "deeppink", "orange", "teal", "green", "darkblue", "red", "darkred", "black"];*/
-
-        var toRemove = [];
-
-        //Suskirtymas i dabartines frakcijas
-        master[kokiaKad].SeimoNarys.forEach(narys => {
-            if (narys.data_iki === kadencijos[kokiaKad].data_iki) {
-                if (narys.hasOwnProperty('Pareigos')) {
-                    tp = narys.Pareigos.find(pareiga => objFrakcijos.hasOwnProperty(pareiga.padalinio_id) && pareiga.data_iki === kadencijos[kokiaKad].data_iki)
-                    if (!tp) {
-                        narys.dabartine_fr_id = "-2"
-                    } else {
-                        narys.dabartine_fr_id = tp.padalinio_id
-                    }
-                } else {
-                    narys.dabartine_fr_id = '-3'
-                }
-
-            } else {
-                toRemove.push(master[kokiaKad].SeimoNarys.indexOf(narys));
-            }
-        });
-
-        //Panaikinami dabar nesantys nariai
-        for (var i = 0; i < toRemove.length; i++) {
-            master[kokiaKad].SeimoNarys.splice(toRemove[i] - i, 1);
-        }
-
-        master[kokiaKad].SeimoNarys.sort(compareFrakcija);
-
-        nariuList = document.createElement('ol');
-        duotsarasa.appendChild(nariuList);
-
-        //Pridejimas nariu i sarasa
-        master[kokiaKad].SeimoNarys.forEach(narys => {
-            let listItem = document.createElement("li");
-            nariuList.appendChild(listItem);
-            listItem.innerText = objFrakcijos[narys.dabartine_fr_id].trumpinys + " " + narys.vardas + " " + narys.pavardė;
-            listItem.setAttribute("style", "color:" + objFrakcijos[narys.dabartine_fr_id].spalva);
-        });
-    }
+    
 
     var dropdown = document.getElementById("kadencijaDropDown")
 
