@@ -6,51 +6,56 @@ window.onload = () => {
         master = await response.json()
         response = await fetch("https://raw.githubusercontent.com/mantassky/Parliament-Project/main/objFrakcijos.json")
         objFrakcijos = await response.json()
+        response = await fetch("https://raw.githubusercontent.com/mantassky/Parliament-Project/main/kadencijos.json")
+        kadencijos = await response.json()
     }
     getFiles()
     var kokiaKad = "9"
     var consoleogint = document.getElementById("consolelogint");
     var duotsarasa = document.getElementById("duotsarasa");
     var padaliniai = {}
-    var kadencijos = {
+    /*var kadencijos = {
         "1": {
-            data_nuo: "1990-03-10",
-            data_iki: "1992-11-22"
+            "data_nuo": "1990-03-10",
+            "data_iki": "1992-11-22"
         },
         "2": {
-            data_nuo: "1992-11-24",
-            data_iki: "1996-11-22"
+            "data_nuo": "1992-11-24",
+            "data_iki": "1996-11-22"
         },
         "3": {
-            data_nuo: "1996-11-25",
-            data_iki: "2000-10-18"
+            "data_nuo": "1996-11-25",
+            "data_iki": "2000-10-18"
         },
         "4": {
-            data_nuo: "2000-10-19",
-            data_iki: "2004-11-14"
+            "data_nuo": "2000-10-19",
+            "data_iki": "2004-11-14"
         },
         "5": {
-            data_nuo: "2004-11-15",
-            data_iki: "2008-11-17"
+            "data_nuo": "2004-11-15",
+            "data_iki": "2008-11-17"
         },
         "6": {
-            data_nuo: "2008-11-17",
-            data_iki: "2012-11-16"
+            "data_nuo": "2008-11-17",
+            "data_iki": "2012-11-16"
         },
         "7": {
-            data_nuo: "2012-11-16",
-            data_iki: "2016-11-14"
+            "data_nuo": "2012-11-16",
+            "data_iki": "2016-11-14"
         },
         "8": {
-            data_nuo: "2016-11-14",
-            data_iki: "2020-11-13"
+            "data_nuo": "2016-11-14",
+            "data_iki": "2020-11-13"
         },
         "9": {
-            data_nuo: "2020-11-13",
-            data_iki: ""
+            "data_nuo": "2020-11-13",
+            "data_iki": ""
         }
     }
+    */
     
+    
+
     duotsarasa.onclick = () => {
         duotsarasa.innerText = "sarasas duotas";
 
